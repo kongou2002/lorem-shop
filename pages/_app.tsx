@@ -1,16 +1,20 @@
 import "@/styles/globals.css";
-import Header from "@/components/AppHeader";
 import type { AppProps } from "next/app";
 import NextBreadcrumbs from "../components/BreadCrum/NextBreadcrumbs";
+import Layout from "../layouts/LandingPages";
+import { wrapper } from "../store/store";
 
-export default function App({ Component, pageProps }: AppProps) {
+function App({ Component, pageProps }: AppProps) {
   return (
     <>
-      <Header />
-      <NextBreadcrumbs />
-      <main>
-        <Component {...pageProps} />
-      </main>
+      <Layout>
+        <main className="container mx-auto max-h-full">
+          <NextBreadcrumbs />
+          <Component {...pageProps} />
+        </main>
+      </Layout>
     </>
   );
 }
+
+export default wrapper.withRedux(App);

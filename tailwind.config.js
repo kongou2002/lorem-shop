@@ -6,10 +6,14 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage: theme => ( {
+        'gradient-random': `linear-gradient(to right, rgb(${ Math.floor( Math.random() * 256 ) }, ${ Math.floor( Math.random() * 256 ) }, ${ Math.floor( Math.random() * 256 ) }), rgb(${ Math.floor( Math.random() * 256 ) }, ${ Math.floor( Math.random() * 256 ) }, ${ Math.floor( Math.random() * 256 ) }))`,
+      } ),
+    },
   },
   plugins: [ require( "daisyui" ) ],
   daisyui: {
-    themes: [ "dracula", "cupcake", ]
+    themes: [ "dark", "light", ]
   },
 }

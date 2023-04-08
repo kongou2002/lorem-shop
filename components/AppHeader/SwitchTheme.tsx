@@ -10,7 +10,6 @@ const SwitchTheme = () => {
   useEffect(() => {
     if (typeof window !== "undefined") {
       const localTheme = localStorage.getItem("theme");
-      console.log(localTheme);
       if (localTheme) {
         setTheme(localTheme);
       }
@@ -20,7 +19,7 @@ const SwitchTheme = () => {
   }, []);
 
   const toggleTheme = () => {
-    setTheme(theme === "dracula" ? "cupcake" : "dracula");
+    setTheme(theme === "dark" ? "light" : "dark");
   };
 
   //modify data-theme attribute on document.body when theme changes

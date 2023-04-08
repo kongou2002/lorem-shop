@@ -1,27 +1,139 @@
 "use client";
 
+import Image from "next/legacy/image";
 import Link from "next/link";
+import SearchField from "../SearchBar";
+import logo from "./logo.png";
 import SwitchTheme from "./SwitchTheme";
-import { useRouter } from "next/router";
-function index() {
-  const router = useRouter;
+import { AiOutlineClose, AiOutlineMenu, AiOutlineSearch } from "react-icons/ai";
+import { useState } from "react";
+function Index() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [isSearch, setIsSearch] = useState(false);
+  const path = [
+    { name: "Home", path: "/" },
+    { name: "Category", path: "/category" },
+    { name: "Sale", path: "/sale" },
+  ];
   return (
     <div>
       <div className="navbar bg-base-100">
         <div className="flex-1">
-          <Link className="btn btn-ghost normal-case text-xl" href="/">
-            lorem shop
-          </Link>
-        </div>
-        <div className="flex-none gap-2">
-          <div className="form-control">
-            <input
-              type="text"
-              placeholder="Search"
-              className="input input-bordered"
+          <div className="rounded-ful hidden lg:flex">
+            <Link className="" href="/">
+              <Image
+                src={logo}
+                width={60}
+                height={60}
+                objectFit="fill"
+                alt="logo"
+                className="rounded-full"
+              />
+            </Link>
+          </div>
+          <div className="hidden lg:flex">
+            {path.map((item) => (
+              <>
+                <Link className="btn btn-ghost" href={item.path}>
+                  {item.name}
+                </Link>
+              </>
+            ))}
+          </div>
+          {/* --------------------------------------------- */}
+          <div className="display lg:hidden">
+            <AiOutlineMenu
+              size={20}
+              onClick={() => {
+                setIsOpen(true);
+              }}
             />
           </div>
+          {isOpen ? (
+            <div className=" fixed left-0 top-0 w-[60%] h-full border-r border-r-gray-900 flex flex-col items-start bg-secondary z-50">
+              <div className="flex justify-end w-full mt-4">
+                <AiOutlineClose
+                  size={20}
+                  onClick={() => {
+                    setIsOpen(false);
+                  }}
+                />
+              </div>
+              <Link className="" href="/">
+                <Image
+                  src={logo}
+                  width={60}
+                  height={60}
+                  objectFit="fill"
+                  alt="logo"
+                  className="rounded-full"
+                />
+              </Link>
+              {path.map((item) => (
+                <>
+                  <Link className="btn btn-ghost" href={item.path}>
+                    {item.name}
+                  </Link>
+                </>
+              ))}
+            </div>
+          ) : null}
+
+          {/* --------------------------------------------- */}
+        </div>
+        <div className="flex-none gap-2">
+          <div className="hidden sm:flex">
+            <SearchField />
+          </div>
+          {/* --------------------------------------------- */}
           <div>
+            <button
+              title="search"
+              className="sm:hidden"
+              onClick={() => {
+                setIsSearch(!isSearch);
+              }}
+            >
+              <AiOutlineSearch size={"1.7rem"} />
+            </button>
+          </div>
+          {/* --------------------------------------------- */}
+          <div className="dropdown dropdown-end">
+            <label tabIndex={0} className="btn btn-ghost btn-circle">
+              <div className="indicator">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+                  />
+                </svg>
+                <span className="badge badge-sm indicator-item">8</span>
+              </div>
+            </label>
+            <div
+              tabIndex={0}
+              className="mt-3 card card-compact dropdown-content w-52 bg-base-100 shadow"
+            >
+              <div className="card-body">
+                <span className="font-bold text-lg">8 Items</span>
+                <span className="text-info">Subtotal: $999</span>
+                <div className="card-actions">
+                  <button className="btn btn-primary btn-block">
+                    View cart
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="hidden sm:flex">
             <SwitchTheme />
           </div>
 
@@ -35,44 +147,16 @@ function index() {
           ) : (
             <>
               <div className="dropdown dropdown-end">
-                <label tabIndex={0} className="btn btn-ghost btn-circle">
-                  <div className="indicator">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-5 w-5"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
-                      />
-                    </svg>
-                    <span className="badge badge-sm indicator-item">8</span>
-                  </div>
-                </label>
-                <div
-                  tabIndex={0}
-                  className="mt-3 card card-compact dropdown-content w-52 bg-base-100 shadow"
-                >
-                  <div className="card-body">
-                    <span className="font-bold text-lg">8 Items</span>
-                    <span className="text-info">Subtotal: $999</span>
-                    <div className="card-actions">
-                      <button className="btn btn-primary btn-block">
-                        View cart
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="dropdown dropdown-end">
                 <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                   <div className="w-10 rounded-full">
-                    <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                    <Image
+                      src="/../public/favicon.ico"
+                      width={60}
+                      height={60}
+                      objectFit="fill"
+                      alt="logo"
+                      className="rounded-full"
+                    />
                   </div>
                 </label>
                 <ul
@@ -97,8 +181,13 @@ function index() {
           )}
         </div>
       </div>
+      {isSearch ? (
+        <div className="w-full">
+          <SearchField />
+        </div>
+      ) : null}
     </div>
   );
 }
 
-export default index;
+export default Index;

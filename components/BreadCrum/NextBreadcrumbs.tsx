@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { AiOutlineHome } from "react-icons/ai";
 
 export default function NextBreadcrumbs() {
   // Gives us ability to load the current route details
@@ -27,7 +28,10 @@ export default function NextBreadcrumbs() {
     });
 
     // Add in a default "Home" crumb for the top-level
-    return [{ href: "/", text: "Home" }, ...crumblist];
+    return [
+      { href: "/", text: <AiOutlineHome size={"1.7rem"} /> },
+      ...crumblist,
+    ];
   }
 
   // Call the function to generate the breadcrumbs list
@@ -37,7 +41,7 @@ export default function NextBreadcrumbs() {
     <div className="text-sm breadcrumbs">
       <ul>
         {breadcrumbs.map((crumb, idx) => (
-          <li key={idx}>
+          <li key={`crumb-${idx}`}>
             <Link href={crumb.href}>{crumb.text}</Link>
           </li>
         ))}
