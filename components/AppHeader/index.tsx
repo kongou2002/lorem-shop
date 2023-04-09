@@ -1,5 +1,4 @@
 "use client";
-
 import Image from "next/legacy/image";
 import Link from "next/link";
 import SearchField from "../SearchBar";
@@ -7,6 +6,8 @@ import logo from "./logo.png";
 import SwitchTheme from "./SwitchTheme";
 import { AiOutlineClose, AiOutlineMenu, AiOutlineSearch } from "react-icons/ai";
 import { useState } from "react";
+import { PrismaClient } from "@prisma/client";
+
 function Index() {
   const [isOpen, setIsOpen] = useState(false);
   const [isSearch, setIsSearch] = useState(false);
@@ -32,12 +33,12 @@ function Index() {
             </Link>
           </div>
           <div className="hidden lg:flex">
-            {path.map((item) => (
-              <>
+            {path.map((item, index) => (
+              <div key={index}>
                 <Link className="btn btn-ghost" href={item.path}>
                   {item.name}
                 </Link>
-              </>
+              </div>
             ))}
           </div>
           {/* --------------------------------------------- */}

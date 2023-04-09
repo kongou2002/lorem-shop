@@ -3,14 +3,17 @@ import React from "react";
 
 function SectionImage() {
   return (
-    <div>
+    <>
       <Image
-        src={"https://randommer.io/images/clothes/Ski%20Suit.webp"}
+        src={
+          "https://i.pinimg.com/564x/1b/fd/bc/1bfdbcfb01448f061592b0082f6799b3.jpg"
+        }
         width={1080}
         height={960}
         alt=""
+        className="object-fill w-full h-full"
       />
-    </div>
+    </>
   );
 }
 

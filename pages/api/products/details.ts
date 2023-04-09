@@ -9,9 +9,6 @@ export default async function handle(req:NextApiRequest, res:NextApiResponse) {
     where: {
       id : String(req.query.id)
     },
-    include: {
-      detailsImage: true,
-    }
   })
   res.json(Product)
 }

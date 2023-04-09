@@ -2,8 +2,7 @@ import Hero from "@/components/Hero";
 import MenuCategory from "@/components/MenuCategory";
 import ProductCard from "@/components/ProductCard";
 import SectionImage from "@/components/SectionImage";
-import { Product } from "@/interface/Product";
-import { PrismaClient } from "@prisma/client";
+import { category, PrismaClient, product } from "@prisma/client";
 import { Inter } from "next/font/google";
 import Head from "next/head";
 import { useEffect, useState } from "react";
@@ -11,7 +10,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export async function getStaticProps() {
   const prisma = new PrismaClient();
-  // get 4 product with rating >= 4
+  // get 4 product with highest rating
   const product = await prisma.product.findMany({
     where: {
       rating: {
@@ -28,29 +27,37 @@ export async function getStaticProps() {
     },
     take: 6,
   });
-  const Category = await prisma.findMany({
-    take: 6,
+  const Category = await prisma.category.findMany({
+    select: {
+      id: true,
+      name: true,
+    },
   });
 
   return {
     props: {
       products: product,
       SaleProduct: SaleProduct,
+      Category: Category,
     },
   };
 }
 export default function Home(props: {
-  products: Array<Product>;
-  SaleProduct: Array<Product>;
+  products: Array<product>;
+  SaleProduct: Array<product>;
+  Category: Array<category>;
 }) {
-  const [products, setProducts] = useState<Array<Product>>([]);
+  const [products, setProducts] = useState<Array<product>>([]);
   const [loading, setLoading] = useState<boolean>(false);
-  const [saleProduct, setSaleProduct] = useState<Array<Product>>([]);
+  const [saleProduct, setSaleProduct] = useState<Array<product>>([]);
+  const [category, setCategory] = useState<Array<category>>([]);
+  const [search, setSearch] = useState<string>("");
   useEffect(() => {
     setProducts(props.products);
-    setLoading(true);
     setSaleProduct(props.SaleProduct);
-  }, [props.products, props.SaleProduct]);
+    setCategory(props.Category);
+    setLoading(true);
+  }, [props]);
   return (
     <>
       <Head>
@@ -63,7 +70,7 @@ export default function Home(props: {
           <Hero />
         </div>
         <div className="flex">
-          <MenuCategory />
+          <MenuCategory category={category} />
         </div>
         <div>
           <div className="w-full mt-2 mb-2 bg-secondary">

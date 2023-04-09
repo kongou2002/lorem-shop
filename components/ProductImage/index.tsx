@@ -1,7 +1,8 @@
 import { Product } from "@/interface/Product";
+import { product } from "@prisma/client";
 import Image from "next/legacy/image";
 
-function index({ products }: { products: Product }) {
+function index({ products }: { products: product }) {
   return (
     <>
       <Image

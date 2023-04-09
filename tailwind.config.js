@@ -7,9 +7,6 @@ module.exports = {
   ],
   theme: {
     extend: {
-      backgroundImage: theme => ( {
-        'gradient-random': `linear-gradient(to right, rgb(${ Math.floor( Math.random() * 256 ) }, ${ Math.floor( Math.random() * 256 ) }, ${ Math.floor( Math.random() * 256 ) }), rgb(${ Math.floor( Math.random() * 256 ) }, ${ Math.floor( Math.random() * 256 ) }, ${ Math.floor( Math.random() * 256 ) }))`,
-      } ),
     },
   },
   plugins: [ require( "daisyui" ) ],

@@ -1,16 +1,17 @@
 import ProductImage from "@/components/ProductImage";
 import { Product } from "@/interface/Product";
+import { product } from "@prisma/client";
 import Link from "next/link";
 import { SyntheticEvent, useEffect, useState } from "react";
 import ColorRadio from "../ColorRadio";
 
 interface Props {
-  product: Array<Product>;
+  product: Array<product>;
   loading: boolean;
 }
 
 function View({ product, loading }: Props) {
-  const [products, setProducts] = useState<Array<Product>>([]);
+  const [products, setProducts] = useState<Array<product>>([]);
   useEffect(() => {
     setProducts(product);
   }, [product]);
