@@ -41,11 +41,7 @@ function LoginForm() {
       const data = await res.json();
       const { user, token } = data;
       await setUser(user);
-      if (user.role === "admin") {
-        router.push("/dashboard");
-      } else {
-        router.push("/");
-      }
+      router.push("/");
     } catch (error) {
       console.log(error);
     }

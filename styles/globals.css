@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .card-hover {
+        @apply p-2 rounded-lg m-2 bg-base-200;
+    }
+}

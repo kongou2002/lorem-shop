@@ -72,19 +72,36 @@ export default function Home(props: {
         <div className="flex">
           <MenuCategory category={category} />
         </div>
-        <div>
-          <div className="w-full mt-2 mb-2 bg-secondary">
-            <h1 className="text-sm lg:text-lg">Promotion</h1>
-          </div>
-          <div className="flex flex-col sm:flex-row ">
-            <div className="grid grid-cols-2 md:grid-cols-3">
-              <ProductCard product={saleProduct} loading={loading} />
+        {saleProduct.length > 5 ? (
+          <div id="promotion zone" className="border rounded">
+            <div className="w-full mt-2 mb-2 bg-secondary">
+              <h1 className="text-sm lg:text-lg">Promotion</h1>
             </div>
-            <div className="">
-              <SectionImage />
+            <div className="flex flex-col sm:flex-row ">
+              <div className="">
+                <SectionImage />
+              </div>
+              <div className="grid grid-cols-2 md:grid-cols-3">
+                <ProductCard product={saleProduct} loading={loading} />
+              </div>
             </div>
           </div>
-        </div>
+        ) : null}
+        {saleProduct.length > 5 ? (
+          <div id="promotion zone">
+            <div className="w-full mt-2 mb-2 bg-secondary">
+              <h1 className="text-sm lg:text-lg">Promotion</h1>
+            </div>
+            <div className="flex flex-col sm:flex-row ">
+              <div className="grid grid-cols-2 md:grid-cols-3">
+                <ProductCard product={saleProduct} loading={loading} />
+              </div>
+              <div className="">
+                <SectionImage />
+              </div>
+            </div>
+          </div>
+        ) : null}
         <div className="">
           <div className="w-full text-center mt-2 mb-2">
             <h1 className="text-sm lg:text-lg">Popular product</h1>
