@@ -51,7 +51,6 @@ export default function Home(props: {
   const [loading, setLoading] = useState<boolean>(false);
   const [saleProduct, setSaleProduct] = useState<Array<product>>([]);
   const [category, setCategory] = useState<Array<category>>([]);
-  const [search, setSearch] = useState<string>("");
   useEffect(() => {
     setProducts(props.products);
     setSaleProduct(props.SaleProduct);

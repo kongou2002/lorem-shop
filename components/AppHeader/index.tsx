@@ -13,7 +13,7 @@ function Index() {
   const [isSearch, setIsSearch] = useState(false);
   const path = [
     { name: "Home", path: "/" },
-    { name: "Category", path: "/category" },
+    { name: "Product", path: "/product" },
     { name: "Sale", path: "/sale" },
   ];
   return (
