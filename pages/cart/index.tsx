@@ -1,7 +1,16 @@
 import React from "react";
 
-function index() {
-  return <div>index</div>;
+function Cart() {
+  return <div>Cart</div>;
 }
 
-export default index;
+Cart.getLayout = function getLayout(page: ReactElement) {
+  return (
+    <>
+      <>{page}</>
+      <h1></h1>
+    </>
+  );
+};
+
+export default Cart;

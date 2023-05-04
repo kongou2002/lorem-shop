@@ -38,7 +38,7 @@ export default function NextBreadcrumbs() {
   const breadcrumbs = generateBreadcrumbs();
 
   return (
-    <div className="text-sm breadcrumbs">
+    <div className="text-sm breadcrumbs sm:ml-[5%]">
       <ul>
         {breadcrumbs.map((crumb, idx) => (
           <li key={`crumb-${idx}`}>

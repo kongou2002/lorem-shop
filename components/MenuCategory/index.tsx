@@ -1,8 +1,8 @@
-import { category } from "@/interface/Product";
-import React from "react";
+import { product } from "@prisma/client";
+import React, { ReactElement } from "react";
 
 type props = {
-  category: category[];
+  category: Array<product>;
 };
 
 function MenuCategory({ category }: props) {
@@ -27,7 +27,7 @@ function MenuCategory({ category }: props) {
                 console.log("click");
               }}
             >
-              <span className="text-sm text-base-100">{item.name}</span>
+              <span className="text-sm text-base-100">{item?.category}</span>
             </button>
           </div>
         );

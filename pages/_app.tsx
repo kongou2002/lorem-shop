@@ -1,18 +1,26 @@
 import "@/styles/globals.css";
+import { NextPage } from "next";
 import type { AppProps } from "next/app";
+import { ReactElement, ReactNode } from "react";
 import NextBreadcrumbs from "../components/BreadCrum/NextBreadcrumbs";
-import Layout from "../layouts/LandingPages";
+import Layout from "../layouts/Main";
 import { wrapper } from "../store/store";
 
-function App({ Component, pageProps }: AppProps) {
-  return (
+type NextPageWithLayout = NextPage & {
+  getLayout?: (page: ReactElement) => ReactNode;
+};
+
+type AppPropsWithLayout = AppProps & {
+  Component: NextPageWithLayout;
+};
+
+function App({ Component, pageProps }: AppPropsWithLayout) {
+  const getLayout = Component.getLayout ?? ((page) => <Layout>{page}</Layout>);
+
+  return getLayout(
     <>
-      <Layout>
-        <main className="container mx-auto max-h-full">
-          <NextBreadcrumbs />
-          <Component {...pageProps} />
-        </main>
-      </Layout>
+      <NextBreadcrumbs />
+      <Component {...pageProps} />
     </>
   );
 }

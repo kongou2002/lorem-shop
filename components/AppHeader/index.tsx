@@ -2,7 +2,7 @@
 import Image from "next/legacy/image";
 import Link from "next/link";
 import SearchField from "../SearchBar";
-import logo from "./logo.png";
+import logo from "../../public/logo.png";
 import SwitchTheme from "./SwitchTheme";
 import { AiOutlineClose, AiOutlineMenu, AiOutlineSearch } from "react-icons/ai";
 import { useState } from "react";
@@ -13,7 +13,7 @@ function Index() {
   const [isSearch, setIsSearch] = useState(false);
   const path = [
     { name: "Home", path: "/" },
-    { name: "Category", path: "/category" },
+    { name: "Product", path: "/product" },
     { name: "Sale", path: "/sale" },
   ];
   return (
@@ -127,9 +127,9 @@ function Index() {
                 <span className="font-bold text-lg">8 Items</span>
                 <span className="text-info">Subtotal: $999</span>
                 <div className="card-actions">
-                  <button className="btn btn-primary btn-block">
+                  <Link href={"/cart"} className="btn btn-primary btn-block">
                     View cart
-                  </button>
+                  </Link>
                 </div>
               </div>
             </div>

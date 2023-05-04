@@ -2,7 +2,7 @@ import Hero from "@/components/Hero";
 import MenuCategory from "@/components/MenuCategory";
 import ProductCard from "@/components/ProductCard";
 import SectionImage from "@/components/SectionImage";
-import { category, PrismaClient, product } from "@prisma/client";
+import { PrismaClient, product } from "@prisma/client";
 import { Inter } from "next/font/google";
 import Head from "next/head";
 import { useEffect, useState } from "react";
@@ -27,10 +27,9 @@ export async function getStaticProps() {
     },
     take: 6,
   });
-  const Category = await prisma.category.findMany({
+  const Category = await prisma.product.findMany({
     select: {
-      id: true,
-      name: true,
+      category: true,
     },
   });
 
@@ -45,13 +44,12 @@ export async function getStaticProps() {
 export default function Home(props: {
   products: Array<product>;
   SaleProduct: Array<product>;
-  Category: Array<category>;
+  Category: Array<product>;
 }) {
   const [products, setProducts] = useState<Array<product>>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [saleProduct, setSaleProduct] = useState<Array<product>>([]);
-  const [category, setCategory] = useState<Array<category>>([]);
-  const [search, setSearch] = useState<string>("");
+  const [category, setCategory] = useState<Array<product>>([]);
   useEffect(() => {
     setProducts(props.products);
     setSaleProduct(props.SaleProduct);
@@ -59,7 +57,7 @@ export default function Home(props: {
     setLoading(true);
   }, [props]);
   return (
-    <>
+    <div className="container mx-auto max-h-full">
       <Head>
         <title>lorem shop</title>
         <meta name="description" content="Fashion shop" />
@@ -113,6 +111,6 @@ export default function Home(props: {
           </div>
         </div>
       </main>
-    </>
+    </div>
   );
 }
