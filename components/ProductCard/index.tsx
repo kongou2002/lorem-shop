@@ -25,7 +25,7 @@ function View({ product, loading }: Props) {
   return (
     <>
       {!loading ? (
-        <div>loading</div>
+        <progress className="progress w-56"></progress>
       ) : (
         <>
           {products.map((item, index) => (
@@ -38,7 +38,7 @@ function View({ product, loading }: Props) {
                 data-product-id={index}
               >
                 <div className="hover:opacity-60">
-                  <Link href={`/product/${item.id}`}>
+                  <Link href={`/products/${item.id}`}>
                     <ProductImage products={item} />
                   </Link>
                   <div className="text-left">
@@ -88,7 +88,7 @@ function View({ product, loading }: Props) {
                   </div> */}
                   </div>
                 </div>
-                {hoveredProductId === index ? (
+                {/* {hoveredProductId === index ? (
                   <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ">
                     <button className="bg-primary text-white p-2 rounded-md">
                       Add to cart
@@ -96,7 +96,7 @@ function View({ product, loading }: Props) {
                   </div>
                 ) : (
                   <></>
-                )}
+                )} */}
               </div>
             </>
           ))}

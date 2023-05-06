@@ -1,8 +1,7 @@
-import { PrismaClient } from "@prisma/client";
+import prisma from '../../../utils/prisma';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function handle(req:NextApiRequest, res:NextApiResponse) {
-  const prisma = new PrismaClient();
   const page = Number(req.query.page) || 1; // default to page 1 if not specified
   const limit = Number(req.query.limit) || 10; // default to 10 items per page if not specified
   const category = String(req.query.category || "");
@@ -12,7 +11,7 @@ export default async function handle(req:NextApiRequest, res:NextApiResponse) {
     take: limit,
     skip: offset,
     where: {
-        category: category || undefined
+        category_name: category || undefined
     },
     orderBy: {
       title: "desc"

@@ -1,22 +1,22 @@
-import React, { useState, useEffect } from "react";
-import { useRouter } from "next/router";
-import { data } from "autoprefixer";
-import { Product } from "../../interface/Product";
-import ProductImage from "../../components/ProductImage";
+import { addToCart } from "@/store/slice/cart";
 import Image from "next/legacy/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { Product } from "../../interface/Product";
 
 async function getServerSide(id: string) {
   //get data from prisma
-  const res = await fetch(
-    `http://localhost:3000/api/products/details?id=${id}`
-  );
+  const res = await fetch(`/api/products/details?id=${id}`);
   const data = await res.json();
   return data;
 }
 
 function Details() {
   const router = useRouter();
+  //use cart reducer
+  const dispatch = useDispatch();
   const { id } = router.query;
   const [product, setProduct] = useState<Product | null>(null);
   const [imageArray, setImageArray] = useState<string[]>([]);
@@ -33,13 +33,22 @@ function Details() {
   const carousel = imageArray.map((image, index) => {
     return (
       <div id={`slide${index}`} className="carousel-item" key={index}>
-        <Image src={image} alt="" height={700} width={500} />
+        <Image src={image} alt="" height={700} width={400} />
       </div>
     );
   });
+  const handleAddToCart = () => {
+    //dispatch action to add to cart product id
+    const data = {
+      id: product!.id,
+      title: product!.title,
+      price: product!.price,
+    };
+    dispatch(addToCart(data));
+  };
   if (!product) return <div>Loading...</div>;
   return (
-    <div>
+    <div className="container mx-auto max-h-full">
       <div className="card lg:card-side bg-base-100 shadow-xl">
         <figure className="sm:w-1/3">
           <div className="w-full">
@@ -70,7 +79,9 @@ function Details() {
           <p>{product.description}</p>
           <div className="card-actions justify-end">
             <button className="btn btn-primary w-">Contact</button>
-            <button className="btn btn-secondary">Add to cart</button>
+            <button onClick={handleAddToCart} className="btn btn-secondary">
+              Add to cart
+            </button>
           </div>
         </div>
       </div>

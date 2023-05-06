@@ -1,6 +1,6 @@
 
 export interface Product {
-    id: String;
+    id: string;
     title: string;
     price: number;
     discountPercentage: number;

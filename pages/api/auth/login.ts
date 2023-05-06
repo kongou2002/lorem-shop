@@ -1,22 +1,20 @@
 import cookie from "cookie"
-import { PrismaClient } from "@prisma/client"
+import prisma from '../../../utils/prisma';
 import jwt, { Secret } from "jsonwebtoken"
 import { NextApiRequest, NextApiResponse } from "next"
 
 
-const prisma = new PrismaClient()
+
 const secretKey = process.env.JWT_SECRET;
 export default async function handle(req:NextApiRequest, res:NextApiResponse) {
     //encode the password
   const user = await prisma.user.findFirst({
     where: {
-        email: String(req.body.email),
-        Password: String(req.body.password)
+        email: req.body.email,
+        password: String(req.body.password)
     },select:{
         id:true,
         email:true,
-        name:true,
-        role:true,
     }
     })
     if (user) {

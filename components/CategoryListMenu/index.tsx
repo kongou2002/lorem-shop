@@ -1,4 +1,5 @@
 import { product } from "@prisma/client";
+import { useRouter } from "next/router";
 import React, { ReactElement } from "react";
 
 type props = {
@@ -6,6 +7,7 @@ type props = {
 };
 
 function MenuCategory({ category }: props) {
+  const router = useRouter();
   const randomGradient = () => {
     const colors = [
       "bg-gradient-to-r from-green-400 to-blue-500",
@@ -24,10 +26,15 @@ function MenuCategory({ category }: props) {
             <button
               className={`btn btn-ghost btn-sm rounded-2xl ${randomGradient()}`}
               onClick={() => {
-                console.log("click");
+                router.push({
+                  pathname: "/products",
+                  query: { category: item.category_name },
+                });
               }}
             >
-              <span className="text-sm text-base-100">{item?.category}</span>
+              <span className="text-sm text-base-100">
+                {item?.category_name}
+              </span>
             </button>
           </div>
         );

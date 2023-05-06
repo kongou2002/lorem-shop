@@ -1,15 +1,15 @@
 import Hero from "@/components/Hero";
-import MenuCategory from "@/components/MenuCategory";
+import CategoryListMenu from "@/components/CategoryListMenu";
 import ProductCard from "@/components/ProductCard";
 import SectionImage from "@/components/SectionImage";
-import { PrismaClient, product } from "@prisma/client";
+import { product } from "@prisma/client";
+import prisma from "../utils/prisma";
 import { Inter } from "next/font/google";
 import Head from "next/head";
 import { useEffect, useState } from "react";
 const inter = Inter({ subsets: ["latin"] });
 
 export async function getStaticProps() {
-  const prisma = new PrismaClient();
   // get 4 product with highest rating
   const product = await prisma.product.findMany({
     where: {
@@ -29,7 +29,7 @@ export async function getStaticProps() {
   });
   const Category = await prisma.product.findMany({
     select: {
-      category: true,
+      category_name: true,
     },
   });
 
@@ -68,7 +68,7 @@ export default function Home(props: {
           <Hero />
         </div>
         <div className="flex">
-          <MenuCategory category={category} />
+          <CategoryListMenu category={category} />
         </div>
         {saleProduct.length > 5 ? (
           <div id="promotion zone" className="border rounded">

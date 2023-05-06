@@ -1,8 +1,7 @@
-import { PrismaClient } from "@prisma/client";
+import prisma from '../../../utils/prisma';
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handle(req: NextApiRequest, res: NextApiResponse) {
-  const prisma = new PrismaClient();
 const query = req.query;
   const searchValue = await prisma.product.findMany({
     where: {

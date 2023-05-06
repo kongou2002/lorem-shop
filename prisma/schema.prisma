@@ -7,12 +7,18 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+type CartProduct {
+  amount    Int
+  productID String @map("productId")
+}
+
 model address {
   id String @id @default(auto()) @map("_id") @db.ObjectId
 }
 
 model cart {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
+  id      String        @id @default(auto()) @map("_id") @db.ObjectId
+  product CartProduct[]
 }
 
 model category {
@@ -25,7 +31,8 @@ model category {
 model product {
   id                 String   @id @default(auto()) @map("_id") @db.ObjectId
   brand              String
-  category           String?  @map("category_name") @db.String
+  cartId             String?  @db.ObjectId
+  category_name      String
   color              String[]
   description        String
   discountPercentage Float
@@ -39,9 +46,11 @@ model product {
 }
 
 model user {
-  id    String @id @default(auto()) @map("_id") @db.ObjectId
-  /// Field referred in an index, but found no data to define the type.
-  email Json?  @unique
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  cartId   String @db.ObjectId
+  email    String @unique
+  name     String
+  password String
 }
 
 model wishlist {

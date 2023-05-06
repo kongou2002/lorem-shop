@@ -5,17 +5,29 @@ import SearchField from "../SearchBar";
 import logo from "../../public/logo.png";
 import SwitchTheme from "./SwitchTheme";
 import { AiOutlineClose, AiOutlineMenu, AiOutlineSearch } from "react-icons/ai";
-import { useState } from "react";
-import { PrismaClient } from "@prisma/client";
+import { useState, useEffect } from "react";
+import { PrismaClient, product } from "@prisma/client";
+import SideBarMenu from "../SideBarMenu";
+import { useSelector } from "react-redux";
+import { AppState } from "@/store/store";
+import Cart from "../CartTable";
 
-function Index() {
+function Index(props: { Category: Array<product> }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isSearch, setIsSearch] = useState(false);
+  const [category, setCategory] = useState<Array<product>>([]);
+  const cart = useSelector((state: AppState) => state.cart);
+  const total = cart.items.length;
+  const cost = cart.items.reduce((a, b) => a + b.price, 0);
   const path = [
     { name: "Home", path: "/" },
-    { name: "Product", path: "/product" },
+    { name: "Product", path: "/products" },
     { name: "Sale", path: "/sale" },
   ];
+  useEffect(() => {
+    setCategory(props.Category);
+    console.log(props.Category);
+  }, []);
   return (
     <div>
       <div className="navbar bg-base-100">
@@ -77,6 +89,9 @@ function Index() {
                   </Link>
                 </>
               ))}
+              <div>
+                <SideBarMenu category={category} />
+              </div>
             </div>
           ) : null}
 
@@ -116,16 +131,24 @@ function Index() {
                     d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
                   />
                 </svg>
-                <span className="badge badge-sm indicator-item">8</span>
+                <span className="badge badge-sm indicator-item">{total}</span>
               </div>
             </label>
             <div
               tabIndex={0}
-              className="mt-3 card card-compact dropdown-content w-52 bg-base-100 shadow"
+              className="mt-3 card card-compact dropdown-content w-60 bg-base-100 shadow"
             >
               <div className="card-body">
-                <span className="font-bold text-lg">8 Items</span>
-                <span className="text-info">Subtotal: $999</span>
+                <span className="text-sm">
+                  {cart.items.map((item) => (
+                    <div key={item.id}>
+                      <p>
+                        <label>{item.title}</label> x{item.quantity}
+                      </p>
+                    </div>
+                  ))}
+                </span>
+                <span className="text-info">Subtotal: ${cost}</span>
                 <div className="card-actions">
                   <Link href={"/cart"} className="btn btn-primary btn-block">
                     View cart

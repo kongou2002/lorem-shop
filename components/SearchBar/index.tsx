@@ -3,10 +3,7 @@ import { PrismaClient, product } from "@prisma/client";
 import Link from "next/link";
 
 export async function getServerSideProps(key: string) {
-  const req = await fetch(
-    `http://localhost:3000/api/products/search?key=${key}`
-  );
-
+  const req = await fetch(`/api/products/search?key=${key}`);
   const data = await req.json();
   return data;
 }
@@ -39,12 +36,17 @@ function SearchField() {
         />
       </div>
       {search && (
-        <div className="absolute w-full bg-white border border-gray-200 z-10">
+        <div className="absolute w-full bg-white border border-gray-200 z-30">
           {products.length > 0 ? (
             <ul className="list-none p-2">
               {products.map((product) => (
                 <li key={product.id}>
-                  <Link href={`/products/${product.id}`}>
+                  <Link
+                    onClick={() => {
+                      setSearch("");
+                    }}
+                    href={`/products/${product.id}`}
+                  >
                     {product.title} - {product.price}
                   </Link>
                 </li>

@@ -1,16 +1,21 @@
-import React from "react";
+import React, { ReactElement } from "react";
+import CartTable from "@/components/CartTable";
 
 function Cart() {
-  return <div>Cart</div>;
+  return (
+    <div className="flex justify-center">
+      <CartTable />
+    </div>
+  );
 }
 
-Cart.getLayout = function getLayout(page: ReactElement) {
-  return (
-    <>
-      <>{page}</>
-      <h1></h1>
-    </>
-  );
-};
+// Cart.getLayout = function getLayout(page: ReactElement) {
+//   return (
+//     <>
+//       <>{page}</>
+//       <h1></h1>
+//     </>
+//   );
+// };
 
 export default Cart;
