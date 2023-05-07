@@ -11,8 +11,9 @@ import SideBarMenu from "../SideBarMenu";
 import { useSelector } from "react-redux";
 import { AppState } from "@/store/store";
 import Cart from "../CartTable";
+import prisma from "@/utils/prisma";
 
-function Index(props: { Category: Array<product> }) {
+function Index() {
   const [isOpen, setIsOpen] = useState(false);
   const [isSearch, setIsSearch] = useState(false);
   const [category, setCategory] = useState<Array<product>>([]);
@@ -25,8 +26,12 @@ function Index(props: { Category: Array<product> }) {
     { name: "Sale", path: "/sale" },
   ];
   useEffect(() => {
-    setCategory(props.Category);
-    console.log(props.Category);
+    async function fetchCategory() {
+      const getCategory = await fetch("/api/products/getCategory");
+      const data = await getCategory.json();
+      setCategory(data);
+    }
+    fetchCategory();
   }, []);
   return (
     <div>
@@ -90,7 +95,7 @@ function Index(props: { Category: Array<product> }) {
                 </>
               ))}
               <div>
-                <SideBarMenu category={category} />
+                <SideBarMenu category={category} isOpen={() => isOpen} />
               </div>
             </div>
           ) : null}

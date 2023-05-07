@@ -4,9 +4,10 @@ import { useRouter } from "next/router";
 type props = {
   category: Array<product>;
   loading?: (loading: boolean) => void;
+  isOpen?: (isOpen: boolean) => void | boolean;
 };
 
-function LeftMenu({ category, loading }: props) {
+function LeftMenu({ category, loading, isOpen }: props) {
   const router = useRouter();
   return (
     <div className="flex flex-col rounded-lg">
@@ -24,6 +25,7 @@ function LeftMenu({ category, loading }: props) {
                     query: { category: item.category_name },
                   });
                   loading?.(false);
+                  isOpen?.(false);
                 }}
               >
                 {item.category_name}
