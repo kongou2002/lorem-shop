@@ -1,17 +1,15 @@
 "use client";
+import { AppState } from "@/store/store";
+import { product } from "@prisma/client";
 import Image from "next/legacy/image";
 import Link from "next/link";
-import SearchField from "../SearchBar";
-import logo from "../../public/logo.png";
-import SwitchTheme from "./SwitchTheme";
+import { useEffect, useState } from "react";
 import { AiOutlineClose, AiOutlineMenu, AiOutlineSearch } from "react-icons/ai";
-import { useState, useEffect } from "react";
-import { PrismaClient, product } from "@prisma/client";
-import SideBarMenu from "../SideBarMenu";
 import { useSelector } from "react-redux";
-import { AppState } from "@/store/store";
-import Cart from "../CartTable";
-import prisma from "@/utils/prisma";
+import logo from "../../public/logo.png";
+import SearchField from "../SearchBar";
+import SideBarMenu from "../SideBarMenu";
+import SwitchTheme from "./SwitchTheme";
 
 function Index() {
   const [isOpen, setIsOpen] = useState(false);

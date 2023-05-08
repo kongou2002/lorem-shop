@@ -4,16 +4,26 @@ import { MdNavigateNext } from "react-icons/md";
 import { MdNavigateBefore } from "react-icons/md";
 import { useEffect } from "react";
 import { IconContext } from "react-icons";
+import prisma from "@/utils/prisma";
+import image1 from "../../public/6c3a3fba39bccabdc434c2b6f40632c9.jpg";
+import image2 from "../../public/attachment.png";
+import image3 from "../../public/backdrop-1920.jpg";
 function Hero() {
   // create a slideshow with 3 images
-  const [hero, setHero] = useState([
-    "/../public/6c3a3fba39bccabdc434c2b6f40632c9.jpg",
-    "/../public/attachment.png",
-    "/../public/backdrop-1920.jpg",
-  ]);
+  const [hero, setHero] = useState([image1, image2, image3]);
   const [index, setIndex] = useState(0);
   //create a radio button to switch between images
   const [checked, setChecked] = useState(false);
+  //fetch the images from the api
+  // useEffect(() => {
+  //   prisma.hero
+  //     .findMany()
+  //     .then((res) => {
+  //       const images = res.map((item) => item.image);
+  //       setHero(images);
+  //     })
+  //     .catch((err) => console.log(err));
+  // }, []);
   //if the index change then the radio button will change
   useEffect(() => {
     const radio = document.getElementById(`hero${index}`) as HTMLInputElement;

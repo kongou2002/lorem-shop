@@ -9,7 +9,7 @@ datasource db {
 
 type CartProduct {
   amount    Int
-  productID String @map("productId")
+  productID String
 }
 
 model address {
@@ -26,6 +26,11 @@ model category {
   createdAt DateTime @db.Date
   name      String
   updatedAt DateTime @db.Date
+}
+
+model hero {
+  id    String   @id @default(auto()) @map("_id") @db.ObjectId
+  image String[]
 }
 
 model product {
