@@ -16,8 +16,13 @@ function Index() {
   const [isSearch, setIsSearch] = useState(false);
   const [category, setCategory] = useState<Array<product>>([]);
   const cart = useSelector((state: AppState) => state.cart);
-  const total = cart.items.length;
-  const cost = cart.items.reduce((a, b) => a + b.price, 0);
+  const total = cart.items.reduce((total, item) => total + item.quantity, 0);
+  const cost = cart.items.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0
+  );
+  //calculate total price
+
   const path = [
     { name: "Home", path: "/" },
     { name: "Product", path: "/products" },
@@ -146,7 +151,7 @@ function Index() {
                   {cart.items.map((item) => (
                     <div key={item.id}>
                       <p>
-                        <label>{item.title}</label> x{item.quantity}
+                        <label>{item.title}</label> x {item.quantity}
                       </p>
                     </div>
                   ))}

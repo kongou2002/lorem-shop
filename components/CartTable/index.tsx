@@ -35,7 +35,7 @@ function Cart() {
                   {item.quantity}{" "}
                   <button onClick={() => handlePlus(item.id)}>+</button>
                 </td>
-                <td>{item.price}</td>
+                <td>{item.price * item.quantity}</td>
               </tr>
             ))}
           </tbody>

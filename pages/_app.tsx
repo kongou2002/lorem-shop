@@ -16,7 +16,6 @@ type AppPropsWithLayout = AppProps & {
 
 function App({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page) => <Layout>{page}</Layout>);
-
   return getLayout(
     <>
       <NextBreadcrumbs />

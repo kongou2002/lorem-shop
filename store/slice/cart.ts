@@ -24,6 +24,7 @@ const cartSlice = createSlice({
         state.items.push({ ...newItem, quantity: 1 });
       }
 
+      // calculate total price and mutiply by quantity
       state.totalPrice += newItem.price;
     },
     removeFromCart: (state, action: PayloadAction<string>) => {
