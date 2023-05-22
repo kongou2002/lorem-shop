@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import {toast} from 'react-toastify';
 
 interface CartState {
   items: { id: string; title: string; price: number; quantity: number }[];
@@ -20,12 +21,15 @@ const cartSlice = createSlice({
 
       if (existingItem) {
         existingItem.quantity++;
+
       } else {
         state.items.push({ ...newItem, quantity: 1 });
       }
 
       // calculate total price and mutiply by quantity
       state.totalPrice += newItem.price;
+      // on add success, show toast
+        toast.success('Add to cart successfully!');
     },
     removeFromCart: (state, action: PayloadAction<string>) => {
       const id = action.payload;

@@ -1,16 +1,24 @@
 import ProductCard from "@/components/ProductCard";
 import LeftMenu from "@/components/SideBarMenu";
-import { product } from "@prisma/client";
+import { category, product } from "@prisma/client";
 import { useRouter } from "next/router";
 import { useCallback, useEffect, useState } from "react";
 import prisma from "../../utils/prisma";
 
 export async function getStaticProps() {
-  const Category = await prisma.product.findMany({
+  const Category = await prisma.category.findMany({
     select: {
-      category_name: true,
+      name: true,
+      subcategory: true,
     },
-    distinct: ["category_name"],
+  });
+  const SubCategory = await prisma.product.findMany({
+    select: {
+      size: true,
+      color: true,
+      price: true,
+    },
+    distinct: ["size", "color", "price"],
   });
   // get 12 product per page
   return {
@@ -21,10 +29,10 @@ export async function getStaticProps() {
 }
 
 function ProductPage(props: {
-  Category: Array<product>;
+  Category: Array<category>;
   product: Array<product>;
 }) {
-  const [category, setCategory] = useState<Array<product>>([]);
+  const [category, setCategory] = useState<Array<category>>([]);
   const [limit, setLimit] = useState<number>(6);
   const [page, setPage] = useState<number>(0);
   const [prevPage, setPrevPage] = useState<number>(0);
@@ -73,7 +81,7 @@ function ProductPage(props: {
     setLoading(loading);
   };
   return (
-    <div className="flex justify-center relative">
+    <div className="flex justify-center relative min-h-screen">
       <div className="hidden sm:block sm:w-2/12 border rounded-lg">
         <LeftMenu category={category} loading={handleLoading} />
       </div>
@@ -85,7 +93,7 @@ function ProductPage(props: {
           <button className="btn" onClick={handlePrevPage}>
             «
           </button>
-          <button className="btn">Page {page}</button>
+          <button className="btn btn-disabled">Page {page}</button>
           <button className="btn" onClick={handleNextPage}>
             »
           </button>

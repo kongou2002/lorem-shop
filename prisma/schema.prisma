@@ -12,6 +12,11 @@ type CartProduct {
   productID String
 }
 
+type CategorySubcategory {
+  Color String[]
+  size  String[]
+}
+
 model address {
   id String @id @default(auto()) @map("_id") @db.ObjectId
 }
@@ -22,10 +27,11 @@ model cart {
 }
 
 model category {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  createdAt DateTime @db.Date
-  name      String
-  updatedAt DateTime @db.Date
+  id          String               @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt   DateTime             @db.Date
+  name        String
+  subcategory CategorySubcategory?
+  updatedAt   DateTime             @db.Date
 }
 
 model hero {

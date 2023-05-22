@@ -5,6 +5,8 @@ import { ReactElement, ReactNode } from "react";
 import NextBreadcrumbs from "../components/BreadCrum/NextBreadcrumbs";
 import Layout from "../layouts/Main";
 import { wrapper } from "../store/store";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -20,6 +22,20 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
     <>
       <NextBreadcrumbs />
       <Component {...pageProps} />
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+      {/* Same as */}
+      <ToastContainer />
     </>
   );
 }

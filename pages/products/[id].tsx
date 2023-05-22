@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Product } from "../../interface/Product";
-
+import { toast } from "react-toastify";
 async function getServerSide(id: string) {
   //get data from prisma
   const res = await fetch(`/api/products/details?id=${id}`);
@@ -33,7 +33,7 @@ function Details() {
   const carousel = imageArray.map((image, index) => {
     return (
       <div id={`slide${index}`} className="carousel-item" key={index}>
-        <Image src={image} alt="" height={700} width={400} />
+        <Image src={image} alt="" height={700} width={500} />
       </div>
     );
   });

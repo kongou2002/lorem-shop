@@ -1,6 +1,6 @@
 "use client";
 import { AppState } from "@/store/store";
-import { product } from "@prisma/client";
+import { category, product } from "@prisma/client";
 import Image from "next/legacy/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -14,7 +14,7 @@ import SwitchTheme from "./SwitchTheme";
 function Index() {
   const [isOpen, setIsOpen] = useState(false);
   const [isSearch, setIsSearch] = useState(false);
-  const [category, setCategory] = useState<Array<product>>([]);
+  const [category, setCategory] = useState<Array<category>>([]);
   const cart = useSelector((state: AppState) => state.cart);
   const total = cart.items.reduce((total, item) => total + item.quantity, 0);
   const cost = cart.items.reduce(
@@ -71,7 +71,7 @@ function Index() {
             />
           </div>
           {isOpen ? (
-            <div className=" fixed left-0 top-0 w-[60%] h-full border-r border-r-gray-900 flex flex-col items-start bg-secondary z-50">
+            <div className=" fixed left-0 top-0 w-[60%] h-full border-r border-r-gray-900 flex flex-col items-start bg-secondary z-50 scroll-smooth">
               <div className="flex justify-end w-full mt-4">
                 <AiOutlineClose
                   size={20}
@@ -97,7 +97,7 @@ function Index() {
                   </Link>
                 </>
               ))}
-              <div>
+              <div className="border w-full">
                 <SideBarMenu category={category} isOpen={() => isOpen} />
               </div>
             </div>

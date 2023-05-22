@@ -32,12 +32,16 @@ export async function getStaticProps() {
       category_name: true,
     },
   });
+  const RandomProduct = await prisma.product.findMany({
+    take: 6,
+  });
 
   return {
     props: {
       products: product,
       SaleProduct: SaleProduct,
       Category: Category,
+      RandomProduct: RandomProduct,
     },
   };
 }
@@ -45,15 +49,18 @@ export default function Home(props: {
   products: Array<product>;
   SaleProduct: Array<product>;
   Category: Array<product>;
+  RandomProduct: Array<product>;
 }) {
   const [products, setProducts] = useState<Array<product>>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [saleProduct, setSaleProduct] = useState<Array<product>>([]);
   const [category, setCategory] = useState<Array<product>>([]);
+  const [randomProduct, setRandomProduct] = useState<Array<product>>([]);
   useEffect(() => {
     setProducts(props.products);
     setSaleProduct(props.SaleProduct);
     setCategory(props.Category);
+    setRandomProduct(props.RandomProduct);
     setLoading(true);
   }, [props]);
   return (
@@ -63,24 +70,24 @@ export default function Home(props: {
         <meta name="description" content="Fashion shop" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
-      <main>
+      <main className="min-h-screen">
         <div>
           <Hero />
         </div>
         <div className="flex">
           <CategoryListMenu category={category} />
         </div>
-        {saleProduct.length > 5 ? (
+        {randomProduct.length > 5 ? (
           <div id="promotion zone" className="border rounded">
             <div className="w-full mt-2 mb-2 bg-secondary">
-              <h1 className="text-sm lg:text-lg">Promotion</h1>
+              <h1 className="text-sm lg:text-lg">May be you likes</h1>
             </div>
             <div className="flex flex-col sm:flex-row ">
               <div className="">
-                <SectionImage />
+                <SectionImage src="https://i.pinimg.com/564x/f3/83/cf/f383cf02f7e629630e148b24dd77e5cf.jpg" />
               </div>
               <div className="grid grid-cols-2 md:grid-cols-3">
-                <ProductCard product={saleProduct} loading={loading} />
+                <ProductCard product={randomProduct} loading={loading} />
               </div>
             </div>
           </div>
@@ -95,7 +102,7 @@ export default function Home(props: {
                 <ProductCard product={saleProduct} loading={loading} />
               </div>
               <div className="">
-                <SectionImage />
+                <SectionImage src="https://i.pinimg.com/564x/1b/fd/bc/1bfdbcfb01448f061592b0082f6799b3.jpg" />
               </div>
             </div>
           </div>

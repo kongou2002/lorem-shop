@@ -5,12 +5,11 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse) {
-    const category = await prisma.product.findMany({
+    const category = await prisma.category.findMany({
         select: {
-            category_name: true
+            name: true,
+            subcategory:true
         },
-        distinct: ['category_name']
     })
-    console.log(category)
     res.status(200).json(category)
 }
