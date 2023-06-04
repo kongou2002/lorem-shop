@@ -3,7 +3,7 @@ import CartTable from "@/components/CartTable";
 
 function Cart() {
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center min-h-full">
       <CartTable />
     </div>
   );

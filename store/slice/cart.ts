@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {toast} from 'react-toastify';
 
 interface CartState {
-  items: { id: string; title: string; price: number; quantity: number }[];
+  items: { id: string; title: string; price: number; quantity: number,image:string }[];
   totalPrice: number;
 }
 
@@ -15,7 +15,7 @@ const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
-    addToCart: (state, action: PayloadAction<{ id: string; title: string; price: number }>) => {
+    addToCart: (state, action: PayloadAction<{ id: string; title: string; price: number,image:string }>) => {
       const newItem = action.payload;
       const existingItem = state.items.find((item) => item.id === newItem.id);
 

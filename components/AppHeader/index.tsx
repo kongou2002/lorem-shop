@@ -1,6 +1,8 @@
 "use client";
+import auth from "@/store/slice/auth";
 import { AppState } from "@/store/store";
 import { category, product } from "@prisma/client";
+import { is, set } from "immer/dist/internal";
 import Image from "next/legacy/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -16,11 +18,13 @@ function Index() {
   const [isSearch, setIsSearch] = useState(false);
   const [category, setCategory] = useState<Array<category>>([]);
   const cart = useSelector((state: AppState) => state.cart);
+  const auth = useSelector((state: AppState) => state.auth);
   const total = cart.items.reduce((total, item) => total + item.quantity, 0);
   const cost = cart.items.reduce(
     (total, item) => total + item.price * item.quantity,
     0
   );
+
   //calculate total price
 
   const path = [
@@ -36,6 +40,10 @@ function Index() {
     }
     fetchCategory();
   }, []);
+  const logout = () => {
+    localStorage.removeItem("token");
+    window.location.reload();
+  };
   return (
     <div>
       <div className="navbar bg-base-100">
@@ -169,7 +177,7 @@ function Index() {
             <SwitchTheme />
           </div>
 
-          {!false ? (
+          {!auth.isLogin ? (
             <div>
               <Link className="btn btn-ghost" href="/login">
                 {" "}
@@ -205,7 +213,7 @@ function Index() {
                     <a>Settings</a>
                   </li>
                   <li>
-                    <a>Logout</a>
+                    <a onClick={logout}>Logout</a>
                   </li>
                 </ul>
               </div>

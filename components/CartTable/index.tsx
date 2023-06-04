@@ -1,5 +1,6 @@
 import { plusQuantity, removeFromCart } from "@/store/slice/cart";
 import { AppState } from "@/store/store";
+import Image from "next/legacy/image";
 import { type } from "os";
 import React from "react";
 import { useDispatch } from "react-redux";
@@ -20,6 +21,7 @@ function Cart() {
         <table className="table">
           <thead>
             <tr>
+              <th>Image</th>
               <th>Product</th>
               <th>Quantity</th>
               <th>Price</th>
@@ -28,6 +30,15 @@ function Cart() {
           <tbody>
             {cart.items.map((item, index) => (
               <tr key={index}>
+                <td>
+                  <div className="w-10">
+                    <Image
+                      src={item.image}
+                      alt={item.image}
+                      
+                    />
+                  </div>
+                </td>
                 <td>{item.title}</td>
 
                 <td className="flex justify-between">

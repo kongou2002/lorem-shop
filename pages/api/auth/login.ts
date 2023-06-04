@@ -10,13 +10,14 @@ export default async function handle(req:NextApiRequest, res:NextApiResponse) {
     //encode the password
   const user = await prisma.user.findFirst({
     where: {
-        email: req.body.email,
+        email: String(req.body.email),
         password: String(req.body.password)
     },select:{
         id:true,
         email:true,
     }
     })
+    console.log(req.body)
     if (user) {
         //generate jwt token
         const token = jwt.sign({id: user.id}, secretKey as Secret, {expiresIn: "1d"})
