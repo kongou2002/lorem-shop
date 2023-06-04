@@ -129,7 +129,7 @@ function LoginForm() {
             </>
           ) : (
             <>
-              <p> Don't have an account? </p>
+              <p> Do not have an account </p>
               &nbsp;
               <button
                 className="text-pink-500"
